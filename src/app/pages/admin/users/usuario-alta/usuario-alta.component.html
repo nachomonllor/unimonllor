@@ -1,0 +1,175 @@
+<div class="container userAlta">
+  <mat-toolbar color="primary">
+    <span>
+      Nuevo Usuario Administrador
+      <!-- {{ form.controls['id'].value ? 'Modificar Usuario' : 'Nuevo Usuario' }} -->
+    </span>
+    <span class="fill-remaining-space"></span>
+    <button
+      class="btn-dialog-close"
+      mat-stroked-button
+      routerLink="/users"
+      tabIndex="-1"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <form [formGroup]="form" class="normal-form mt-3" (ngSubmit)="onSubmit()">
+        <input type="hidden" formControlName="role" />
+        <div class="row my-6">
+          <div class="col-12 col-sm-12 col-md-6">
+            <mat-form-field>
+              <input
+                formControlName="firstname"
+                matInput
+                placeholder="Nombre/s"
+                required
+                autocomplete="off"
+              />
+              <mat-error>El nombre es requerido..</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6">
+            <mat-form-field>
+              <input
+                formControlName="lastname"
+                matInput
+                placeholder="Apellido"
+                required
+                autocomplete="off"
+              />
+              <mat-error>El apellido es requerido..</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row my-6">
+          <div class="col-12 col-sm-12 col-md-6">
+            <mat-form-field>
+              <input
+                formControlName="password"
+                matInput
+                placeholder="Contraseña"
+                type="password"
+                [required]="isRequired"
+                autocomplete="off"
+              />
+              <mat-error>La contraseña es requerida..</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6">
+            <mat-form-field>
+              <input
+                formControlName="confirmPassword"
+                matInput
+                placeholder="Confirmar contraseña"
+                type="password"
+                [required]="isRequired"
+                autocomplete="off"
+              />
+              <mat-error>Debe repetir la contraseña..</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6">
+            <mat-form-field>
+              <input
+                formControlName="email"
+                matInput
+                placeholder="Email"
+                required
+                autocomplete="off"
+              />
+              <mat-error>El email es requerido..</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6">
+            <div class="form-group">
+              <h5>Seleccionar image:</h5>
+              <input
+                type="file"
+                accept=".png, .jpg"
+                (change)="onUpload($event)"
+              />
+            </div>
+            <div class="progress">
+              <div
+                class="progress-bar progress-bar-striped bg-success"
+                role="progressbar"
+                [style.width]="(uploadPercent | async) + '%'"
+              >
+                <span class="progressText" *ngIf="urlImage | async">
+                  Ok!!
+                </span>
+              </div>
+            </div>
+            <br />
+            <input #imageUser type="hidden" [value]="urlImage | async" />
+          </div>
+        </div>
+
+        <div class="row m-t-10">
+          <div class="col-12 col-md-12">
+            <div class="button-row text-right">
+              <div class="form-group">
+                <button
+                  *ngIf="urlImage | async; else btnDisabled"
+                  type="submit"
+                  [disabled]="form.invalid"
+                  mat-raised-button
+                  color="primary"
+                >
+                  <mat-icon>save</mat-icon>
+                  Guardar
+                </button>
+                <ng-template #btnDisabled>
+                  <button
+                    type="submit"
+                    disabled="true"
+                    mat-raised-button
+                    color="primary"
+                  >
+                    <mat-icon>save</mat-icon>
+                    Guardar
+                  </button>
+                </ng-template>
+              </div>
+
+              <button mat-button color="warn" routerLink="/users/list">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- <div class="col-12 col-sm-12 col-md-4">
+    <div class="card">
+      <div class="card-body" align="center">
+        <h4 class="card-title">Foto del usuario</h4>
+        <h6 class="card-subtitle">nombre usuario</h6>
+        <img *ngIf="!imageTemp" [src]="user?.img | image" class="w150 d-block p-b-20">
+        <img *ngIf="imageTemp" [src]="imageTemp" class="w150 d-block p-b-20">
+
+        <input (change)="selectImage($event.target.files[0])" type="file" />
+        <br />
+        <br />
+        <button
+          (click)="changeImage()"
+          [disabled]="!imageUpload"
+          type="button"
+          class="btn btn-success btn-block waves-effect waves-light m-r-10"
+        >
+          <i class="fa fa-save"></i>
+          Actualizar Foto
+        </button>
+      </div>
+    </div>
+
+  </div> -->
+  </div>
+</div>

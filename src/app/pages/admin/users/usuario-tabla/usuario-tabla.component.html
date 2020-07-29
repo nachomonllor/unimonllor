@@ -1,0 +1,118 @@
+<div class="row mt-8">
+  <div class="col-md-9">
+    <div class="card box box-info">
+      <div class="card-body">
+        <div class="d-flex justify-content-between m-b-10">
+          <button
+            color="primary"
+            class="btn btn-outline-info waves-effect waves-light d-none d-sm-inline-flex"
+            routerLink="/users/new"
+          >
+            <mat-icon>add</mat-icon>
+            Crear
+          </button>
+          <mat-form-field class="search-form-field" floatLabel="never">
+            <input matInput #input placeholder="Buscar..." autocomplete="off" />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              *ngIf="true"
+              (click)="onSearchClear()"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <!-- <mat-checkbox [(ngModel)]="checked" (click)="showValue()">Mostrar deshabilitados</mat-checkbox> -->
+        </div>
+
+
+        <div class="mat-elevation-z8">
+          <mat-table
+            [dataSource]="dataSource"
+          >
+            <ng-container matColumnDef="photoUrl">
+              <mat-header-cell *matHeaderCellDef>Foto</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <img
+                  [src]="element.photoUrl"
+                  alt="foto"
+                  [ngStyle]="{ width: '80px' }"
+                  class="img-responsive img-100 pointer"
+                />
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="firstname">
+              <mat-header-cell *matHeaderCellDef>
+                Nombre
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.firstname }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="lastname">
+              <mat-header-cell *matHeaderCellDef>
+                Apellido
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.lastname }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <mat-header-cell *matHeaderCellDef>
+                Email
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="role">
+              <mat-header-cell *matHeaderCellDef>
+                Rol
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngSwitch]="element.role">
+                <span *ngSwitchCase="'admin'">Administrador</span>
+                <span *ngSwitchCase="'teacher'">Profesor</span>
+                <span *ngSwitchCase="'student'">Estudiante</span>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <button
+                  mat-icon-button
+                  [routerLink]="['/users', row.id]"
+                  matTooltip="Editar"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="onDelete(row.id)"
+                  matTooltip="Eliminar"
+                >
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="loading">
+              <mat-footer-cell *matFooterCellDef colspan="6">
+                Loading data...
+              </mat-footer-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+              <mat-footer-cell *matFooterCellDef colspan="6">
+                No data.
+              </mat-footer-cell>
+            </ng-container>
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

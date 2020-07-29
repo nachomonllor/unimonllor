@@ -1,0 +1,30 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  // margin-bottom: 250px;
+}
+.wrapper {
+  max-width: 98%;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.mat-form-field {
+  width: 100%;
+}
+.mt-6 {
+  margin-top: 4.5rem;
+}
+.mt-7 {
+  margin-top: 6rem;
+}
+.mt-8 {
+  margin-top: 7.5rem;
+}
