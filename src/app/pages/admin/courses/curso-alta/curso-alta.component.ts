@@ -16,8 +16,11 @@ import { CourseService } from '../course.service';
 })
 // Padre de CursoListadoComponent
 export class CursoAltaComponent implements OnInit {
-  teacher: User;
+  @ViewChild('imageCourse') inputImageCourse: ElementRef;
   form: FormGroup;
+  uploadPercent: Observable<number>;
+  urlImage: Observable<string>;
+  teacher: User;
   constructor(
     private router: Router,
     private courseService: CourseService,
@@ -30,7 +33,11 @@ export class CursoAltaComponent implements OnInit {
 
   }
   onSubmit() {
-    const payload: Course = {teacher: this.teacher.uid, ...this.form.value};
+    const payload: Course = {
+      teacher: this.teacher,
+      img: this.inputImageCourse.nativeElement.value,
+      ...this.form.value
+    };
     this.courseService.saveCourse(payload).then(data => {
       Swal.fire({
         title: 'Atención',
@@ -60,5 +67,16 @@ export class CursoAltaComponent implements OnInit {
   }
   handleEdit(evt) {
     this.teacher = evt;
+  }
+  onUpload(e) {
+    // console.log('subir', e.target.files[0]);
+    const id = Math.random().toString(36).substring(2);
+    const file = e.target.files[0];
+    const filePath = `uploads/course_${id}`;
+    const ref = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    this.uploadPercent = task.percentageChanges();
+    task.snapshotChanges()
+      .pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
 }

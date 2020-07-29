@@ -16,6 +16,7 @@ import { CourseService } from '../course.service';
 export class CursoTablaComponent implements OnInit {
   dataSource: MatTableDataSource<Course>;
   displayedColumns: string[] = [
+    'img',
     'name',
     'capacity',
     'period',

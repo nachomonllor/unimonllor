@@ -72,27 +72,67 @@
               <mat-error>requerido</mat-error>
             </mat-form-field>
           </div>
-
         </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6">
+            <div class="form-group">
+              <h5>Seleccionar image:</h5>
+              <input
+                type="file"
+                accept=".png, .jpg"
+                (change)="onUpload($event)"
+              />
+            </div>
+            <div class="progress">
+              <div
+                class="progress-bar progress-bar-striped bg-success"
+                role="progressbar"
+                [style.width]="(uploadPercent | async) + '%'"
+              >
+                <span class="progressText" *ngIf="urlImage | async">
+                  Ok!!
+                </span>
+              </div>
+            </div>
+            <br />
+            <input #imageCourse type="hidden" [value]="urlImage | async" />
+          </div>
+        </div>
+
         <div class="row m-t-10">
           <div class="col-12 col-md-12">
             <div class="button-row text-right">
-              <button
-                type="submit"
-                [disabled]="form.invalid"
-                mat-raised-button
-                color="primary"
-              >
-                <mat-icon>save</mat-icon>
-                Guardar
-              </button>
+              <div class="form-group">
+                <button
+                  *ngIf="urlImage | async; else btnDisabled"
+                  type="submit"
+                  [disabled]="form.invalid"
+                  mat-raised-button
+                  color="primary"
+                >
+                  <mat-icon>save</mat-icon>
+                  Guardar
+                </button>
+                <ng-template #btnDisabled>
+                  <button
+                    type="submit"
+                    disabled="true"
+                    mat-raised-button
+                    color="primary"
+                  >
+                    <mat-icon>save</mat-icon>
+                    Guardar
+                  </button>
+                </ng-template>
+              </div>
 
-              <button mat-button color="warn" routerLink="/courses/list">
+              <button mat-button color="warn" routerLink="/users/list">
                 Cancelar
               </button>
             </div>
           </div>
         </div>
+
       </form>
     </div>
     <!-- <div class="col-12 col-sm-12 col-md-4">

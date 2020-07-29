@@ -3,6 +3,7 @@ export interface Course {
   period: number;
   capacity: number;
   year: number;
-  teacher: string;
+  teacher: any;
+  img: string;
   uid?: string;
 }

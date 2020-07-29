@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../../../models/user.model';
 import { Course } from '../../../models/course.model';
@@ -13,6 +13,7 @@ import { Course } from '../../../models/course.model';
   providedIn: 'root'
 })
 export class CourseService {
+  joined$: Observable<any>;
   constructor(
     public afAuth: AngularFireAuth,
     public afs: AngularFirestore,
@@ -21,11 +22,11 @@ export class CourseService {
 
   getCourses() {
     return new Promise((resolve, reject) => {
-      let courseDoc = this.afs.firestore.collection('courses');
-      courseDoc.get().then((querySnapshot) => {
+      let courseDoc = this.afs.collection('courses');
+      this.afs.collection('courses').snapshotChanges().subscribe((querySnapshot) => {
         let courses: Course[] = [];
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
+        querySnapshot.forEach((doc: any) => {
+          const data = doc.payload.doc.data();
           courses.push({
             uid: doc.id,
             name: data.name,
@@ -33,14 +34,17 @@ export class CourseService {
             capacity: data.capacity,
             year: data.year,
             teacher: data.teacher,
+            img: data.img
           });
         });
-        resolve(courses);
-      }).catch(err => reject);
-    });
+         resolve(courses);
+      });
+    })
   }
-  saveCourse(course: Course): Promise<void> {
-    return this.afs.collection('courses').doc(this.afs.createId()).set(course);
+  saveCourse(course: Course) {
+    // return this.afs.collection('courses').doc(course.teacher.uid).collection('items').add({...course});
+    return this.afs.collection('courses').add(course);
+    // return this.afs.collection(`courses/${course.teacher}`).add({...course});
   }
   getCollection(collection: string) {
     return new Promise((resolve, reject) => {
