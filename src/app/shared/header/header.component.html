@@ -20,21 +20,22 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item mx-0 mx-lg-1 dropdown">
-          <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger dropdown-toggle" href="#" id="mnuUsers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Usuarios
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <div class="dropdown-menu" aria-labelledby="mnuUsers">
             <a class="dropdown-item" routerLink="/users/new">Alta</a>
             <a class="dropdown-item" routerLink="/users/list">Listar</a>
           </div>
         </li>
-        <li class="nav-item mx-0 mx-lg-1">
-          <a
-            class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-            routerLink="/courses"
-          >
+        <li class="nav-item mx-0 mx-lg-1 dropdown">
+          <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger dropdown-toggle" href="#" id="mnuCourses" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Materias
           </a>
+          <div class="dropdown-menu" aria-labelledby="mnuCourses">
+            <a class="dropdown-item" routerLink="/courses/new">Alta</a>
+            <a class="dropdown-item" routerLink="/courses/list">Listar</a>
+          </div>
         </li>
         <li class="nav-item mx-0 mx-lg-1">
           <a

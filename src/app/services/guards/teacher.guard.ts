@@ -15,7 +15,7 @@ import { take, map, tap } from 'rxjs/operators';
 import { User } from '../../models/user.model';
 
 @Injectable({ providedIn: 'root' })
-export class AdminGuard implements CanActivate {
+export class TeacherGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private afsAuth: AngularFireAuth,
@@ -24,7 +24,6 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    debugger
     return this.afsAuth.authState
       .pipe(take(1))
       .pipe(map(authState => !!authState))
@@ -35,11 +34,10 @@ export class AdminGuard implements CanActivate {
         else {
           let users$ = this.afs.collection('users').doc(this.afsAuth.auth.currentUser.uid).valueChanges();
           users$.subscribe((data: User) => {
-            if (containsAdminRole(data.role)) {
+            if (containsTeacherRole(data.role)) {
               return true;
             } else {
               this.authService.logoutUser();
-              this.router.navigate(['/login']);
               return false;
             }
           });
@@ -48,6 +46,6 @@ export class AdminGuard implements CanActivate {
   }
 }
 
-function containsAdminRole(role) {
-  return role === 'admin' || role === 'superadmin';
+function containsTeacherRole(role) {
+  return role === 'teacher';
 }

@@ -1,29 +1,26 @@
-import { environment } from './../../../../../environments/environment';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
+import { environment } from '../../../../../environments/environment';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from '../../../../models/user.model';
-import { UserService } from '../user.service';
-
+import { Course } from '../../../../models/course.model';
+import { CourseService } from '../course.service';
 @Component({
-  selector: 'app-usuario-tabla',
-  templateUrl: './usuario-tabla.component.html',
-  styleUrls: ['./usuario-tabla.component.scss']
+  selector: 'app-curso-tabla',
+  templateUrl: './curso-tabla.component.html',
+  styleUrls: ['./curso-tabla.component.scss']
 })
-export class UsuarioTablaComponent implements OnInit {
-  @Output() userEdited = new EventEmitter<User>();
-  @Input() role = 'admin';
-  dataSource: MatTableDataSource<User>;
+export class CursoTablaComponent implements OnInit {
+  dataSource: MatTableDataSource<Course>;
   displayedColumns: string[] = [
-    'photoUrl',
-    'firstname',
-    'lastname',
-    'email',
-    'role',
+    'name',
+    'capacity',
+    'period',
+    'year',
+    'teacher',
     'actions',
   ];
   url: string;
@@ -33,22 +30,21 @@ export class UsuarioTablaComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService
-
+    private courseService: CourseService
   ) {
-    // this.url = `${environment.apiUrl}/api/user`;
+
   }
 
   ngOnInit() {
-    this.userService.getUsers(this.role).then((users: User[]) => {
-      this.dataSource = new MatTableDataSource<User>(users);
+    this.courseService.getCourses().then((courses: Course[]) => {
+      this.dataSource = new MatTableDataSource<Course>(courses);
     });
   }
 
   onDelete(id) {
     Swal.fire({
       title: '¿Está seguro?',
-      text: 'Estás a punto de eliminar un usuario',
+      text: 'Estás a punto de eliminar un curso',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí',
@@ -59,7 +55,7 @@ export class UsuarioTablaComponent implements OnInit {
         //   () => {
         //     Swal.fire(
         //       'Atención :)',
-        //       'El usuario ha sido eliminado',
+        //       'El curso ha sido eliminado',
         //       'success',
         //     );
         //     this.ngOnInit();
@@ -84,8 +80,5 @@ export class UsuarioTablaComponent implements OnInit {
       this.input.nativeElement.value = '';
       this.ngOnInit();
     }
-  }
-  onEdit(evt) {
-    this.userEdited.emit(evt);
   }
 }

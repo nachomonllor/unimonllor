@@ -17,7 +17,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
 
-import { CoursesComponent } from './pages/admin/courses/courses.component';
+
 import { InscriptionComponent } from './pages/student/inscription/inscription.component';
 import { ExamsComponent } from './pages/teacher/exams/exams.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -29,6 +29,10 @@ import { EmailDirective } from './directives/email.directive';
 import { CommonModule } from '@angular/common';
 import { UsuarioAltaComponent } from './pages/admin/users/usuario-alta/usuario-alta.component';
 import { UsuarioTablaComponent } from './pages/admin/users/usuario-tabla/usuario-tabla.component';
+import { CursoAltaComponent } from './pages/admin/courses/curso-alta/curso-alta.component';
+import { CursoTablaComponent } from './pages/admin/courses/curso-tabla/curso-tabla.component';
+import { CursoListadoComponent } from './pages/admin/courses/curso-listado/curso-listado.component';
+import { UsuarioListadoComponent } from './pages/admin/users/usuario-listado/usuario-listado.component';
 
 
 @NgModule({
@@ -44,12 +48,15 @@ import { UsuarioTablaComponent } from './pages/admin/users/usuario-tabla/usuario
     LoginComponent,
     HomeComponent,
     RegisterComponent,
-    CoursesComponent,
     InscriptionComponent,
     ExamsComponent,
     EmailDirective,
     UsuarioAltaComponent,
-    UsuarioTablaComponent
+    UsuarioTablaComponent,
+    UsuarioListadoComponent,
+    CursoAltaComponent,
+    CursoTablaComponent,
+    CursoListadoComponent,
   ],
   imports: [
     BrowserModule,

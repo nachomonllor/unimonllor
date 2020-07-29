@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from '../user/user.service';
+import { AuthService } from '../../auth/auth.service';
+
 
 @Injectable()
 export class VerifyTokenGuard implements CanActivate, CanActivateChild {
   constructor(
-    public _userService: UserService
+    public authService: AuthService
   ) {}
   canActivate(): Promise<boolean> | boolean {
     return this.checkExpiresToken();
@@ -26,22 +27,22 @@ export class VerifyTokenGuard implements CanActivate, CanActivateChild {
       if ( tokenExp.getTime() > now.getTime() ) {
         resolve(true);
       } else {
-        this._userService.renewToken()
+        this.authService.renewToken()
             .subscribe( () => {
               resolve(true);
             }, () => {
-              this._userService.logout();
+              this.authService.logoutUser();
               reject(false);
             });
       }
     });
   }
   private checkExpiresToken() {
-    let token = this._userService.token;
+    let token = this.authService.token;
     let payload = JSON.parse( atob( token.split('.')[1] ));
     let expiredToken = this.tokenEval(payload.exp);
     if (expiredToken) {
-      this._userService.logout();
+      this.authService.logoutUser();
       return false;
     }
     console.log( payload);

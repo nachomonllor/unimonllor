@@ -62,6 +62,7 @@ export class UsuarioAltaComponent implements OnInit {
   }
   createFormGroup(): void {
     this.form = new FormGroup({
+      id: new FormControl(null),
       email: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
       confirmPassword: new FormControl(null, Validators.required),
@@ -95,4 +96,5 @@ export class UsuarioAltaComponent implements OnInit {
     task.snapshotChanges()
       .pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
+
 }

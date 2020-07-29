@@ -7,6 +7,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 // import { Admin } from '../clases/admin';
 import { throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,57 +15,60 @@ import { map } from 'rxjs/operators';
 export class AuthService {
   user: firebase.User;
   token: string;
-  constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
+  constructor(
+    private router: Router,
+    public afAuth: AngularFireAuth, public afs: AngularFirestore) {
     this.loadStorage();
   }
 
   logoutUser() {
     this.user = null;
     this.token = '';
+    this.router.navigate(['/login']);
     return this.afAuth.auth.signOut();
   }
 
   registerUser(user) {
-    debugger
     return new Promise((resolve, reject) => {
       this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
         .then((userData: any) => {
-          debugger
           this.sendVerificationMail();
           resolve(userData);
-          switch (user.role) {
-            case 'admin':
-              const adminCollection = this.db.collection('admins');
-              adminCollection.doc(userData.user.uid).set({
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email,
-                photoUrl: user.photoUrl,
-                role: user.role,
-              });
-              break;
-            case 'teacher':
-              const teacherCollection = this.db.collection('teachers');
-              teacherCollection.doc(userData.user.uid).set({
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email,
-                photoUrl: user.photoUrl,
-                role: user.role
-              });
-              break;
-            case 'student':
-              const studentCollection = this.db.collection('students');
-              console.log(user);
-              studentCollection.doc(userData.user.uid).set({
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email,
-                photoUrl: user.photoUrl,
-                role: user.role
-              });
-              break;
-          }
+          const userCollection = this.afs.collection('users');
+          userCollection.doc(userData.user.uid).set({
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email,
+            photoUrl: user.photoUrl,
+            role: user.role,
+          });
+          // switch (user.role) {
+          //   case 'admin':
+          //     const userCollection = this.afs.collection('users');
+
+          //     break;
+          //   case 'teacher':
+          //     const teacherCollection = this.afs.collection('teachers');
+          //     teacherCollection.doc(userData.user.uid).set({
+          //       firstname: user.firstname,
+          //       lastname: user.lastname,
+          //       email: user.email,
+          //       photoUrl: user.photoUrl,
+          //       role: user.role
+          //     });
+          //     break;
+          //   case 'student':
+          //     const studentCollection = this.afs.collection('students');
+          //     console.log(user);
+          //     studentCollection.doc(userData.user.uid).set({
+          //       firstname: user.firstname,
+          //       lastname: user.lastname,
+          //       email: user.email,
+          //       photoUrl: user.photoUrl,
+          //       role: user.role
+          //     });
+          //     break;
+          // }
         }, err => reject(err));
     });
   }
@@ -109,7 +113,7 @@ export class AuthService {
   }
 
   updateDoc(collectionName: string, data: any) {
-    const collection = this.db.collection(collectionName);
+    const collection = this.afs.collection(collectionName);
     switch (collectionName) {
       case 'admins':
         collection.doc(data.email).update({
@@ -148,13 +152,13 @@ export class AuthService {
 
   getBD(collection: string) {
     return new Promise((resolve, reject) => {
-      this.db.collection(collection).valueChanges().subscribe(data => resolve(data), err => reject(err));
+      this.afs.collection(collection).valueChanges().subscribe(data => resolve(data), err => reject(err));
     });
   }
 
-  getBDByDoc(collection: string, nameDoc: string) {
+  getBafsyDoc(collection: string, nameDoc: string) {
     return new Promise((resolve, reject) => {
-      this.db.collection(collection).doc(nameDoc).valueChanges().subscribe(data => resolve(data), err => reject(err));
+      this.afs.collection(collection).doc(nameDoc).valueChanges().subscribe(data => resolve(data), err => reject(err));
     });
   }
   saveStorage(token: string, user: firebase.User) {

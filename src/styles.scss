@@ -28,3 +28,43 @@ footer {
 .mt-8 {
   margin-top: 7.5rem;
 }
+
+mat-row {
+  font-family: monospace;
+}
+
+.mat-row:hover {
+  background-color: #273db5;
+  .mat-cell {
+    color: whitesmoke;
+  }
+}
+
+.mat-header-cell {
+  background-color: #488cc9;
+  font-family: monospace;
+  color: white;
+  font-weight: 900;
+  text-transform: uppercase;
+  button.mat-sort-header-button {
+    text-transform: uppercase;
+  }
+}
+
+.mat-sort-header-arrow {
+  color: whitesmoke;
+}
+
+// div.container {
+//   margin: 0px 40px;
+// }
+
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+form.normal-form {
+  margin: 10px;
+}

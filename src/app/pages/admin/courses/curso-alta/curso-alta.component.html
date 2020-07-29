@@ -1,0 +1,123 @@
+<div class="container mt-8">
+  <mat-toolbar color="primary">
+    <span>
+      {{ form.controls['id'].value ? 'Modificar Curso' : 'Nuevo Curso' }}
+    </span>
+    <span class="fill-remaining-space"></span>
+    <button
+      class="btn-dialog-close"
+      mat-stroked-button
+      routerLink="/users"
+      tabIndex="-1"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <app-usuario-tabla role="teacher" (userEdited)="handleEdit($event)"></app-usuario-tabla>
+    </div>
+    <div class="col-12 col-md-4" *ngIf="teacher">
+      <form [formGroup]="form" class="normal-form mt-3" (ngSubmit)="onSubmit()">
+        <input type="hidden" formControlName="id" />
+        <div class="row my-6">
+          <div class="col-12 col-sm-12 col-md-6">
+            <mat-form-field>
+              <input
+                formControlName="name"
+                matInput
+                placeholder="Nombre"
+                required
+                autocomplete="off"
+              />
+              <mat-error>requerido</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input
+                formControlName="period"
+                matInput
+                type="number"
+                placeholder="Cuatrimestre"
+                required
+                autocomplete="off"
+              />
+              <mat-error>requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                formControlName="capacity"
+                matInput
+                type="number"
+                placeholder="Cupos"
+                required
+                autocomplete="off"
+              />
+              <mat-error>requerido</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row my-6">
+          <div class="col-12 col-sm-12 col-md-6">
+            <mat-form-field>
+              <input
+                formControlName="year"
+                matInput
+                type="number"
+                placeholder="Año"
+                required
+                autocomplete="off"
+              />
+              <mat-error>requerido</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row m-t-10">
+          <div class="col-12 col-md-12">
+            <div class="button-row text-right">
+              <button
+                type="submit"
+                [disabled]="form.invalid"
+                mat-raised-button
+                color="primary"
+              >
+                <mat-icon>save</mat-icon>
+                Guardar
+              </button>
+
+              <button mat-button color="warn" routerLink="/courses/list">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- <div class="col-12 col-sm-12 col-md-4">
+    <div class="card">
+      <div class="card-body" align="center">
+        <h4 class="card-title">Foto del usuario</h4>
+        <h6 class="card-subtitle">nombre usuario</h6>
+        <img *ngIf="!imageTemp" [src]="user?.img | image" class="w150 d-block p-b-20">
+        <img *ngIf="imageTemp" [src]="imageTemp" class="w150 d-block p-b-20">
+
+        <input (change)="selectImage($event.target.files[0])" type="file" />
+        <br />
+        <br />
+        <button
+          (click)="changeImage()"
+          [disabled]="!imageUpload"
+          type="button"
+          class="btn btn-success btn-block waves-effect waves-light m-r-10"
+        >
+          <i class="fa fa-save"></i>
+          Actualizar Foto
+        </button>
+      </div>
+    </div>
+
+  </div> -->
+  </div>
+</div>
