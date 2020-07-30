@@ -13,12 +13,13 @@ import { UsuarioListadoComponent } from './pages/admin/users/usuario-listado/usu
 import { AdminGuard } from './services/guards/admin.guard';
 import { InscripcionAltaComponent } from './pages/admin/inscriptions/inscripcion-alta/inscripcion-alta.component';
 import { InscripcionListadoComponent } from './pages/admin/inscriptions/inscripcion-listado/inscripcion-listado.component';
+import { LoginGuard } from './services/guards/login.guard';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', canActivate: [LoginGuard], component: HomeComponent },
   {
     path: 'users',
     canActivate: [AdminGuard],

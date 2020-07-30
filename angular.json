@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "nguniversia"
+    }
+  },
+  "defaultProject": "nguniversia",
+  "cli": {
+    "analytics": false
+  }
 }

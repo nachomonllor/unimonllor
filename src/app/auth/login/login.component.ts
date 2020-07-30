@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     }).catch(err => this.handleError(err));
   }
   onLoginRedirect(): void {
-    this.router.navigate(['/courses']);
+    this.router.navigate(['/home']);
   }
   onLogout() {
     this.authService.logoutUser();

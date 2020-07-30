@@ -22,8 +22,11 @@ export class AuthService {
   }
 
   logoutUser() {
+    this.loadStorage
     this.user = null;
     this.token = '';
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.router.navigate(['/login']);
     return this.afAuth.auth.signOut();
   }
