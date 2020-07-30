@@ -1,5 +1,5 @@
 import { environment } from './../../../../../environments/environment';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 
@@ -14,9 +14,10 @@ import { UserService } from '../user.service';
   templateUrl: './usuario-tabla.component.html',
   styleUrls: ['./usuario-tabla.component.scss']
 })
-export class UsuarioTablaComponent implements OnInit {
+export class UsuarioTablaComponent implements OnInit, OnChanges {
   @Output() userEdited = new EventEmitter<User>();
   @Output() userSelected = new EventEmitter<User>();
+  @Input() users;
   @Input() role;
   selectedRowIndex: any;
   dataSource: MatTableDataSource<User>;
@@ -42,9 +43,18 @@ export class UsuarioTablaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUsers(this.role).then((users: User[]) => {
-      this.dataSource = new MatTableDataSource<User>(users);
-    });
+    if (!this.users) {
+      this.userService.getUsers(this.role).then((users: User[]) => {
+        this.dataSource = new MatTableDataSource<User>(users);
+      });
+    } else {
+      this.dataSource = new MatTableDataSource<User>(this.users);
+    }
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.users && changes.users.currentValue) {
+      this.dataSource = new MatTableDataSource<User>(this.users);
+    }
   }
 
   onDelete(id) {

@@ -38,8 +38,25 @@ export class InscriptionService {
       });
     }
   }
+  getStudentsInscripted(courseId) {
+    return this.afs
+      .collection('inscriptions')
+      .doc(courseId)
+      .collection('items')
+      .snapshotChanges()
+      .pipe(
+        map((docData: any) => {
+          return docData.map(item => {
+            return {
+              id: item.payload.doc.id,
+              ...item.payload.doc.data()
+            } as User;
+          });
+        })
+      );
+  }
   validarCupos(course: any) {
-    if (course.capacity > 0 ) {
+    if (course.capacity > 0) {
       return true;
     } else {
       return false;

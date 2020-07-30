@@ -20,7 +20,7 @@
   </div>
   <div class="row" *ngIf="showStudent">
     <div class="col-12 col-md-8">
-      <app-usuario-tabla #usuarioTabla role="student" (userSelected)="userSelected($event)"></app-usuario-tabla>
+      <app-usuario-tabla #usuarioTabla role="student" [users]="students"></app-usuario-tabla>
     </div>
   </div>
 
