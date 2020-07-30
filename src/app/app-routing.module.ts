@@ -14,6 +14,8 @@ import { AdminGuard } from './services/guards/admin.guard';
 import { InscripcionAltaComponent } from './pages/admin/inscriptions/inscripcion-alta/inscripcion-alta.component';
 import { InscripcionListadoComponent } from './pages/admin/inscriptions/inscripcion-listado/inscripcion-listado.component';
 import { LoginGuard } from './services/guards/login.guard';
+import { TeacherGuard } from './services/guards/teacher.guard';
+import { ExamenAltaComponent } from './pages/teacher/exams/examen-alta/examen-alta.component';
 
 
 const routes: Routes = [
@@ -47,6 +49,14 @@ const routes: Routes = [
     }, {
       path: 'list',
       component: InscripcionListadoComponent
+    }],
+  },
+  {
+    path: 'exams',
+    canActivate: [TeacherGuard],
+    children: [{
+      path: 'new',
+      component: ExamenAltaComponent,
     }],
   },
   {

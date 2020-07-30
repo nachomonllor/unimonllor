@@ -24,7 +24,6 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    debugger
     return this.afsAuth.authState
       .pipe(take(1))
       .pipe(map(authState => !!authState))

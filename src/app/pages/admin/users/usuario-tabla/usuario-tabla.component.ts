@@ -41,7 +41,6 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
   ) {
     // this.url = `${environment.apiUrl}/api/user`;
   }
-
   ngOnInit() {
     if (!this.users) {
       this.userService.getUsers(this.role).then((users: User[]) => {
@@ -56,7 +55,6 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
       this.dataSource = new MatTableDataSource<User>(this.users);
     }
   }
-
   onDelete(id) {
     Swal.fire({
       title: '¿Está seguro?',
@@ -101,6 +99,7 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
     this.userEdited.emit(evt);
   }
   onAddStudent(row) {
+    debugger
     row.selected = !row.selected;
     this.userSelected.emit(row);
   }

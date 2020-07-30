@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <mat-form-field>
+        <input
+          matInput
+          name="dateExam"
+          ngModel
+          [matDatepicker]="dateExam"
+          placeholder="Fecha de Turno"
+          required
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dateExam"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dateExam></mat-datepicker>
+        <mat-error>
+          requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <app-inscripcion-listado
+        (courseSelected)="handleCourseSelected($event)"
+        (userSelected)="handleUserSelected($event)"
+      ></app-inscripcion-listado>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-4" *ngIf="student && course">
+      <form [formGroup]="form" class="normal-form mt-3" (ngSubmit)="onSubmit()">
+        <div class="col-12">
+          <mat-form-field>
+            <input
+              matInput
+              name="note"
+              ngModel
+              type="number"
+              placeholder="Nota"
+              required
+              autocomplete="off"
+              min="0"
+              max="10"
+            />
+            <mat-error *ngIf="form.controls.note.errors?.min">
+              el minimo es 0
+            </mat-error>
+            <mat-error *ngIf="form.controls.note.errors?.max">
+              el maximo es 10
+            </mat-error>
+            <mat-error *ngIf="form.controls.note.errors?.required">
+              requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row m-t-10">
+          <div class="col-12 col-md-12">
+            <div class="button-row text-right">
+              <div class="form-group">
+                <button
+                  type="submit"
+                  [disabled]="form.invalid"
+                  mat-raised-button
+                  color="primary"
+                >
+                  <mat-icon>save</mat-icon>
+                  Guardar
+                </button>
+              </div>
+              <button mat-button color="warn" routerLink="/users/list">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

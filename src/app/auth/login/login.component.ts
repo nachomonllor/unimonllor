@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
       this.form.get('email').value,
       this.form.get('password').value
     ).then((res) => {
-      debugger
       this.onLoginRedirect();
     }).catch(err => this.handleError(err));
   }

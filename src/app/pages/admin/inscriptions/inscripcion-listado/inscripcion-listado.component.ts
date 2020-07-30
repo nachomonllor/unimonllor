@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
 export class InscripcionListadoComponent implements OnInit {
   course: Course;
   students: User[] = [];
+  @Output() courseSelected =  new EventEmitter<User>();
+  @Output() userSelected =  new EventEmitter<User>();
   @ViewChild(UsuarioTablaComponent, { static: true }) usuarioTabla: UsuarioTablaComponent;
   showStudent: boolean;
   constructor(private inscriptionService: InscriptionService) {
@@ -25,18 +27,19 @@ export class InscripcionListadoComponent implements OnInit {
   }
   onSubmit() {
   }
-  courseSelected(evt) {
-    debugger
+  handleCourseSelected(evt) {
     this.course = evt;
     this.showStudent = true;
+    this.courseSelected.emit(evt);
     this.getStudentsInscripted(evt.uid);
   }
   getStudentsInscripted(courdeId) {
-    debugger
     this.inscriptionService.getStudentsInscripted(courdeId).subscribe((students: User[]) => {
-      debugger
       this.students = students;
     });
   }
-
+  handleUserSelected($event) {
+    debugger
+    this.userSelected.emit($event);
+  }
 }

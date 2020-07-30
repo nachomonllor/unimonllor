@@ -4,7 +4,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
   transform(value: any[], searchTerm: string, fields: string): any[] {
-    debugger
     const fieldsFilter = fields.split(',');
     if (!value || !searchTerm) {
       return value;

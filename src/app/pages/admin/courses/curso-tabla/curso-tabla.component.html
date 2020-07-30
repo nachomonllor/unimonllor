@@ -45,8 +45,8 @@
       <mat-header-cell *matHeaderCellDef>
         Cupos
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        {{ element.capacity }}
+      <mat-cell *matCellDef="let element" appCupos [cupos]="element.capacity">
+        <span  >{{ element.capacity }}</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="period">

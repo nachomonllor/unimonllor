@@ -25,7 +25,6 @@ export class InscriptionService {
     if (this.validarCupos(inscription.course)) {
       inscription.course.capacity -= 1;
       this.afs.collection('courses').doc(inscription.course.uid).set(inscription.course);
-
       return this.afs.collection('inscriptions').doc(inscription.course.uid).collection('items').add(inscription.student);
     } else {
       Swal.fire({

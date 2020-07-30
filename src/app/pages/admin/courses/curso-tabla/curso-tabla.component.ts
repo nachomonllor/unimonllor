@@ -36,9 +36,6 @@ export class CursoTablaComponent implements OnInit {
     private route: ActivatedRoute,
     private courseService: CourseService
   ) {
-
-  }
-  ngOnInit() {
     this.courseService.getCourses().subscribe((documents) => {
       let courses: Course[] = [];
       documents.forEach((doc: any, key: number) => {
@@ -56,6 +53,9 @@ export class CursoTablaComponent implements OnInit {
       });
       this.dataSource = new MatTableDataSource<Course>(courses);
     });
+  }
+  ngOnInit() {
+
   }
   onDelete(id) {
     Swal.fire({

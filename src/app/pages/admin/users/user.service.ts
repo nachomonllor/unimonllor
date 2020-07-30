@@ -24,7 +24,6 @@ export class UserService {
   getUsers(role?: string) {
     return new Promise((resolve, reject) => {
       let userDoc;
-      debugger
       if( !role ) {
         userDoc = this.afs.firestore.collection('users');
       } else {

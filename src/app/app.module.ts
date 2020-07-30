@@ -19,7 +19,7 @@ import { RegisterComponent } from './auth/register/register.component';
 
 
 import { InscriptionComponent } from './pages/student/inscription/inscription.component';
-import { ExamsComponent } from './pages/teacher/exams/exams.component';
+
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
@@ -36,6 +36,8 @@ import { UsuarioListadoComponent } from './pages/admin/users/usuario-listado/usu
 import { InscripcionAltaComponent } from './pages/admin/inscriptions/inscripcion-alta/inscripcion-alta.component';
 import { InscripcionListadoComponent } from './pages/admin/inscriptions/inscripcion-listado/inscripcion-listado.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { CuposDirective } from './directives/cupos.directive';
+import { ExamenAltaComponent } from './pages/teacher/exams/examen-alta/examen-alta.component';
 
 
 @NgModule({
@@ -52,8 +54,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     HomeComponent,
     RegisterComponent,
     InscriptionComponent,
-    ExamsComponent,
-    EmailDirective,
+    ExamenAltaComponent,
     UsuarioAltaComponent,
     UsuarioTablaComponent,
     UsuarioListadoComponent,
@@ -63,6 +64,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     InscripcionAltaComponent,
     InscripcionListadoComponent,
     FilterPipe,
+    EmailDirective,
+    CuposDirective,
   ],
   imports: [
     BrowserModule,
