@@ -1,5 +1,5 @@
 import { environment } from '../../../../../environments/environment';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 
@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { Course } from '../../../../models/course.model';
 import { CourseService } from '../course.service';
+import { User } from '../../../../models/user.model';
 @Component({
   selector: 'app-curso-tabla',
   templateUrl: './curso-tabla.component.html',
@@ -15,6 +16,8 @@ import { CourseService } from '../course.service';
 })
 export class CursoTablaComponent implements OnInit {
   dataSource: MatTableDataSource<Course>;
+  @Output() courseSelected = new EventEmitter();
+  selectedRowIndex: any;
   displayedColumns: string[] = [
     'img',
     'name',
@@ -35,13 +38,25 @@ export class CursoTablaComponent implements OnInit {
   ) {
 
   }
-
   ngOnInit() {
-    this.courseService.getCourses().then((courses: Course[]) => {
+    this.courseService.getCourses().subscribe((documents) => {
+      let courses: Course[] = [];
+      documents.forEach((doc: any, key: number) => {
+        // const data = doc.payload.doc.data();
+        courses.push({
+          index: key + 1,
+          uid: doc.uid,
+          name: doc.name,
+          period: doc.period,
+          capacity: doc.capacity,
+          year: doc.year,
+          teacher: doc.teacher,
+          img: doc.img
+        });
+      });
       this.dataSource = new MatTableDataSource<Course>(courses);
     });
   }
-
   onDelete(id) {
     Swal.fire({
       title: '¿Está seguro?',
@@ -81,5 +96,9 @@ export class CursoTablaComponent implements OnInit {
       this.input.nativeElement.value = '';
       this.ngOnInit();
     }
+  }
+  highlight(row){
+    this.selectedRowIndex = row.index;
+    this.courseSelected.emit(row);
   }
 }

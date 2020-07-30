@@ -33,6 +33,7 @@ import { CursoAltaComponent } from './pages/admin/courses/curso-alta/curso-alta.
 import { CursoTablaComponent } from './pages/admin/courses/curso-tabla/curso-tabla.component';
 import { CursoListadoComponent } from './pages/admin/courses/curso-listado/curso-listado.component';
 import { UsuarioListadoComponent } from './pages/admin/users/usuario-listado/usuario-listado.component';
+import { InscripcionAltaComponent } from './pages/admin/inscriptions/inscripcion-alta/inscripcion-alta.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { UsuarioListadoComponent } from './pages/admin/users/usuario-listado/usu
     CursoAltaComponent,
     CursoTablaComponent,
     CursoListadoComponent,
+    InscripcionAltaComponent
   ],
   imports: [
     BrowserModule,

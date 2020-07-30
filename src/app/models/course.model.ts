@@ -6,4 +6,5 @@ export interface Course {
   teacher: any;
   img: string;
   uid?: string;
+  index?: number;
 }

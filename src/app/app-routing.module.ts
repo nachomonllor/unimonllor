@@ -11,6 +11,7 @@ import { CursoAltaComponent } from './pages/admin/courses/curso-alta/curso-alta.
 import { CursoListadoComponent } from './pages/admin/courses/curso-listado/curso-listado.component';
 import { UsuarioListadoComponent } from './pages/admin/users/usuario-listado/usuario-listado.component';
 import { AdminGuard } from './services/guards/admin.guard';
+import { InscripcionAltaComponent } from './pages/admin/inscriptions/inscripcion-alta/inscripcion-alta.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,15 @@ const routes: Routes = [
     }, {
       path: 'list',
       component: CursoListadoComponent
+    }]
+  }, {
+    path: 'inscriptions',
+    children: [{
+      path: 'new',
+      component: InscripcionAltaComponent,
+    }, {
+      path: 'list',
+      component: InscripcionAltaComponent
     }],
   },
   {

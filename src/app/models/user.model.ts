@@ -5,6 +5,7 @@ interface DataObj {
   role: string;
   photoUrl?: string;
   password?: string;
+  selected?: boolean;
   uid?: string;
 }
 export class User {
@@ -14,6 +15,7 @@ export class User {
   public role: string;
   public email: string;
   public photoUrl?: string;
+  selected?: boolean;
   public uid: string;
   constructor(obj: DataObj) {
     this.firstname  = obj && obj.firstname || null;

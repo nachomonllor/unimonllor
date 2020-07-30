@@ -1,115 +1,112 @@
-<div class="row mt-8">
-  <div class="col-md-9">
-    <div class="card box box-info">
-      <div class="card-body">
-        <div class="d-flex justify-content-between m-b-10">
-          <button
-            color="primary"
-            class="btn btn-outline-info waves-effect waves-light d-none d-sm-inline-flex"
-            routerLink="/courses/new"
-          >
-            <mat-icon>add</mat-icon>
-            Crear
-          </button>
-          <mat-form-field class="search-form-field" floatLabel="never">
-            <input matInput #input placeholder="Buscar..." autocomplete="off" />
-            <button
-              mat-button
-              matSuffix
-              mat-icon-button
-              aria-label="Clear"
-              *ngIf="true"
-              (click)="onSearchClear()"
-            >
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-        </div>
+<div class="d-flex justify-content-between m-b-10">
+  <button
+    color="primary"
+    class="btn btn-outline-info waves-effect waves-light d-none d-sm-inline-flex"
+    routerLink="/courses/new"
+  >
+    <mat-icon>add</mat-icon>
+    Crear
+  </button>
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input matInput #input placeholder="Buscar..." autocomplete="off" />
+    <button
+      mat-button
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      *ngIf="true"
+      (click)="onSearchClear()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
 
-        <div class="mat-elevation-z8">
-          <mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="img">
-              <mat-header-cell *matHeaderCellDef>Foto</mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <img
-                  [src]="element.img"
-                  alt="foto"
-                  [ngStyle]="{ width: '80px' }"
-                  class="img-responsive img-100 pointer"
-                />
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                {{ element.name }}
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="capacity">
-              <mat-header-cell *matHeaderCellDef>
-                Cupos
-              </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                {{ element.capacity }}
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="period">
-              <mat-header-cell *matHeaderCellDef>
-                Cuatrimestre
-              </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                {{ element.period }}
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="year">
-              <mat-header-cell *matHeaderCellDef>
-                Año
-              </mat-header-cell>
-              <mat-cell *matCellDef="let element">{{ element.year }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="teacher">
-              <mat-header-cell *matHeaderCellDef>
-                Profesor
-              </mat-header-cell>
-              <mat-cell *matCellDef="let element">{{ element.teacher.firstname }} {{ element.teacher.lastname }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="actions">
-              <mat-header-cell *matHeaderCellDef></mat-header-cell>
-              <mat-cell *matCellDef="let row">
-                <button
-                  mat-icon-button
-                  [routerLink]="['/courses', row.id]"
-                  matTooltip="Editar"
-                >
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button
-                  mat-icon-button
-                  color="warn"
-                  (click)="onDelete(row.id)"
-                  matTooltip="Eliminar"
-                >
-                  <mat-icon>delete_outline</mat-icon>
-                </button>
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="loading">
-              <mat-footer-cell *matFooterCellDef colspan="6">
-                Loading data...
-              </mat-footer-cell>
-            </ng-container>
-            <ng-container matColumnDef="noData">
-              <mat-footer-cell *matFooterCellDef colspan="6">
-                No data.
-              </mat-footer-cell>
-            </ng-container>
-            <mat-header-row
-              *matHeaderRowDef="displayedColumns"
-            ></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-          </mat-table>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="img">
+      <mat-header-cell *matHeaderCellDef>Foto</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <img
+          [src]="element.img"
+          alt="foto"
+          [ngStyle]="{ width: '80px' }"
+          class="img-responsive img-100 pointer"
+        />
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.name }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="capacity">
+      <mat-header-cell *matHeaderCellDef>
+        Cupos
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.capacity }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="period">
+      <mat-header-cell *matHeaderCellDef>
+        Cuatrimestre
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.period }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="year">
+      <mat-header-cell *matHeaderCellDef>
+        Año
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.year }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="teacher">
+      <mat-header-cell *matHeaderCellDef>
+        Profesor
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.teacher.firstname }} {{ element.teacher.lastname }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button
+          mat-icon-button
+          [routerLink]="['/courses', row.id]"
+          matTooltip="Editar"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="onDelete(row.id)"
+          matTooltip="Eliminar"
+        >
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        Loading data...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        No data.
+      </mat-footer-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row
+      *matRowDef="let row; columns: displayedColumns; let i = index"
+      (click)="highlight(row)"
+      [ngClass]="{ highlightTableColor: selectedRowIndex == row.index }"
+    ></mat-row>
+  </mat-table>
 </div>

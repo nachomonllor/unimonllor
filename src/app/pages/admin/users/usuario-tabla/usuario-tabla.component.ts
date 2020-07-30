@@ -16,7 +16,9 @@ import { UserService } from '../user.service';
 })
 export class UsuarioTablaComponent implements OnInit {
   @Output() userEdited = new EventEmitter<User>();
-  @Input() role = 'admin';
+  @Output() userSelected = new EventEmitter<User>();
+  @Input() role;
+  selectedRowIndex: any;
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = [
     'photoUrl',
@@ -87,5 +89,12 @@ export class UsuarioTablaComponent implements OnInit {
   }
   onEdit(evt) {
     this.userEdited.emit(evt);
+  }
+  onAddStudent(row) {
+    row.selected = !row.selected;
+    this.userSelected.emit(row);
+  }
+  deselectAll() {
+    this.dataSource.data.forEach(u => u.selected = false);
   }
 }

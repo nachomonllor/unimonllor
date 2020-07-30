@@ -24,6 +24,7 @@ export class UserService {
   getUsers(role?: string) {
     return new Promise((resolve, reject) => {
       let userDoc;
+      debugger
       if( !role ) {
         userDoc = this.afs.firestore.collection('users');
       } else {
@@ -31,9 +32,11 @@ export class UserService {
       }
       userDoc.get().then((querySnapshot) => {
         let users: User[] = [];
-        querySnapshot.forEach((doc) => {
+        let i = 1;
+        querySnapshot.forEach(doc => {
           const data = doc.data();
           users.push({
+            selected: false,
             uid: doc.id,
             firstname: data.firstname,
             lastname: data.lastname,
@@ -41,6 +44,7 @@ export class UserService {
             photoUrl: data.photoUrl,
             email: data.email
           });
+          i++;
         });
         resolve(users);
       }).catch(err => reject);

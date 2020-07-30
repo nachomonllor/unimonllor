@@ -79,4 +79,5 @@ export class CursoAltaComponent implements OnInit {
     task.snapshotChanges()
       .pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
+
 }

@@ -21,29 +21,12 @@ export class CourseService {
   ) { }
 
   getCourses() {
-    return new Promise((resolve, reject) => {
-      let courseDoc = this.afs.collection('courses');
-      this.afs.collection('courses').snapshotChanges().subscribe((querySnapshot) => {
-        let courses: Course[] = [];
-        querySnapshot.forEach((doc: any) => {
-          const data = doc.payload.doc.data();
-          courses.push({
-            uid: doc.id,
-            name: data.name,
-            period: data.period,
-            capacity: data.capacity,
-            year: data.year,
-            teacher: data.teacher,
-            img: data.img
-          });
-        });
-         resolve(courses);
-      });
-    })
+      return this.afs.collection('courses').valueChanges();
   }
   saveCourse(course: Course) {
     // return this.afs.collection('courses').doc(course.teacher.uid).collection('items').add({...course});
-    return this.afs.collection('courses').add(course);
+    course.uid = this.afs.createId();
+    return this.afs.collection('courses').doc(course.uid).set(course);
     // return this.afs.collection(`courses/${course.teacher}`).add({...course});
   }
   getCollection(collection: string) {
