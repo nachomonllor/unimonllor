@@ -35,6 +35,7 @@ import { CursoListadoComponent } from './pages/admin/courses/curso-listado/curso
 import { UsuarioListadoComponent } from './pages/admin/users/usuario-listado/usuario-listado.component';
 import { InscripcionAltaComponent } from './pages/admin/inscriptions/inscripcion-alta/inscripcion-alta.component';
 import { InscripcionListadoComponent } from './pages/admin/inscriptions/inscripcion-listado/inscripcion-listado.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { InscripcionListadoComponent } from './pages/admin/inscriptions/inscripc
     CursoListadoComponent,
     InscripcionAltaComponent,
     InscripcionListadoComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

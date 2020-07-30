@@ -1,14 +1,6 @@
 <div class="d-flex justify-content-between m-b-10">
-  <button
-    color="primary"
-    class="btn btn-outline-info waves-effect waves-light d-none d-sm-inline-flex"
-    routerLink="/users/new"
-  >
-    <mat-icon>add</mat-icon>
-    Crear
-  </button>
   <mat-form-field class="search-form-field" floatLabel="never">
-    <input matInput #input placeholder="Buscar..." autocomplete="off" />
+    <input matInput #searchTerm placeholder="Buscar..." autocomplete="off" />
     <button
       mat-button
       matSuffix
@@ -24,7 +16,7 @@
 </div>
 
 <div class="mat-elevation-z8">
-  <mat-table [dataSource]="dataSource">
+  <mat-table [dataSource]="dataSource | filter:searchTerm.value:'role'">
     <ng-container matColumnDef="photoUrl">
       <mat-header-cell *matHeaderCellDef>Foto</mat-header-cell>
       <mat-cell *matCellDef="let element">
@@ -63,9 +55,10 @@
         Rol
       </mat-header-cell>
       <mat-cell *matCellDef="let element" [ngSwitch]="element.role">
-        <span *ngSwitchCase="'admin'">Administrador</span>
-        <span *ngSwitchCase="'teacher'">Profesor</span>
-        <span *ngSwitchCase="'student'">Estudiante</span>
+        <span *ngSwitchCase="'admin'">Admin</span>
+        <span *ngSwitchCase="'superadmin'">SuperAdmin</span>
+        <span *ngSwitchCase="'teacher'">Teacher</span>
+        <span *ngSwitchCase="'student'">Student</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="actions">
