@@ -1,4 +1,4 @@
-import { UsuarioTablaComponent } from './../../users/usuario-tabla/usuario-tabla.component';
+import { UsuarioTablaComponent } from '../../users/usuario-tabla/usuario-tabla.component';
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Course } from '../../../../models/course.model';
@@ -7,15 +7,15 @@ import { InscriptionService } from '../inscription.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-inscripcion-alta',
-  templateUrl: './inscripcion-alta.component.html',
-  styleUrls: ['./inscripcion-alta.component.scss']
+  selector: 'app-inscripcion-listado',
+  templateUrl: './inscripcion-listado.component.html',
+  styleUrls: ['./inscripcion-listado.component.scss']
 })
 // Padre de inscripcionListadoComponent
-export class InscripcionAltaComponent implements OnInit {
+export class InscripcionListadoComponent implements OnInit {
   course: Course;
   @ViewChild(UsuarioTablaComponent, { static: true }) usuarioTabla: UsuarioTablaComponent;
-
+  showStudent: boolean;
   constructor(private inscriptionService: InscriptionService) {
   }
 
@@ -27,24 +27,7 @@ export class InscripcionAltaComponent implements OnInit {
   courseSelected(evt) {
     this.usuarioTabla.deselectAll();
     this.course = evt;
+    this.showStudent = true;
   }
-  userSelected(evt) {
-    const inscription = {
-      course: this.course,
-      student: evt
-    }
-    if (evt.selected) {
 
-      this.inscriptionService.saveInscription(inscription).then(resp => {
-        Swal.fire({
-          title: 'Atención',
-          text: 'El alumno ha sido inscripto en la materia',
-          icon: 'success',
-          showConfirmButton: true,
-          timer: 2000,
-          animation: true,
-        });
-      });
-    }
-  }
 }

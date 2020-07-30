@@ -12,6 +12,7 @@ import { CursoListadoComponent } from './pages/admin/courses/curso-listado/curso
 import { UsuarioListadoComponent } from './pages/admin/users/usuario-listado/usuario-listado.component';
 import { AdminGuard } from './services/guards/admin.guard';
 import { InscripcionAltaComponent } from './pages/admin/inscriptions/inscripcion-alta/inscripcion-alta.component';
+import { InscripcionListadoComponent } from './pages/admin/inscriptions/inscripcion-listado/inscripcion-listado.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,7 @@ const routes: Routes = [
       component: InscripcionAltaComponent,
     }, {
       path: 'list',
-      component: InscripcionAltaComponent
+      component: InscripcionListadoComponent
     }],
   },
   {
