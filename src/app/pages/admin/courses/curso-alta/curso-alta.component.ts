@@ -65,7 +65,7 @@ export class CursoAltaComponent implements OnInit {
       year: new FormControl(null, Validators.required),
     });
   }
-  handleEdit(evt) {
+  handleSelected(evt) {
     this.teacher = evt;
   }
   onUpload(e) {

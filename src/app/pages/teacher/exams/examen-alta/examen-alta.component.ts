@@ -15,8 +15,7 @@ export class ExamenAltaComponent implements OnInit {
   student: User;
   course: Course;
   form: FormGroup;
-  dateExam: Date;
-  note: number;
+  exam: any;
   constructor(private examService: ExamService) {
     this.createFormGroup();
   }
@@ -30,12 +29,20 @@ export class ExamenAltaComponent implements OnInit {
     this.student = $event;
   }
   onSubmit() {
-    this.examService.saveExam({
-      student: this.student,
-      course: this.course,
-      dateExam: this.form.value.dateExam.format('DD/MM/YYYY'),
-      note: this.form.value.note
-    }).then(resp => {
+    this.examService.saveExam(
+      {
+        student: this.student,
+        course: this.course,
+        dateExam: this.form.value.dateExam.format('DD/MM/YYYY'),
+        note: this.form.value.note
+      }
+    ).then(resp => {
+      this.exam = {
+        student: this.student,
+        course: this.course,
+        dateExam: this.form.value.dateExam.format('DD/MM/YYYY'),
+        note: this.form.value.note
+      };
       Swal.fire({
         title: 'Atención',
         text: 'El examen ha sido guardado',

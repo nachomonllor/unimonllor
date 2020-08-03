@@ -21,6 +21,14 @@ export class ExamService {
     private authService: AuthService
   ) { }
   saveExam(exam: any) {
-    return this.afs.collection('exams').doc(exam.course.uid).collection(exam.student.id).add(exam);
+    return this.afs.firestore.collection('exams').add(exam);
+  }
+  getStudentsByExam(exam: any) {
+    debugger
+    return this.afs.collection('exams',
+            ref => ref.where('dateExam', '==', exam.dateExam)
+            .where('course.uid', '==', exam.course.uid)).snapshotChanges().pipe(map(
+      querySnapshot => querySnapshot.map(i => i.payload.doc.data())
+    ));
   }
 }

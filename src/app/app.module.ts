@@ -38,6 +38,7 @@ import { InscripcionListadoComponent } from './pages/admin/inscriptions/inscripc
 import { FilterPipe } from './pipes/filter.pipe';
 import { CuposDirective } from './directives/cupos.directive';
 import { ExamenAltaComponent } from './pages/teacher/exams/examen-alta/examen-alta.component';
+import { AlumnosListadoComponent } from './pages/teacher/exams/alumnos-listado/alumnos-listado.component';
 
 
 @NgModule({
@@ -54,7 +55,10 @@ import { ExamenAltaComponent } from './pages/teacher/exams/examen-alta/examen-al
     HomeComponent,
     RegisterComponent,
     InscriptionComponent,
+
     ExamenAltaComponent,
+    AlumnosListadoComponent,
+
     UsuarioAltaComponent,
     UsuarioTablaComponent,
     UsuarioListadoComponent,
@@ -63,6 +67,7 @@ import { ExamenAltaComponent } from './pages/teacher/exams/examen-alta/examen-al
     CursoListadoComponent,
     InscripcionAltaComponent,
     InscripcionListadoComponent,
+
     FilterPipe,
     EmailDirective,
     CuposDirective,
