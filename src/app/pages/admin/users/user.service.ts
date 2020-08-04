@@ -24,7 +24,7 @@ export class UserService {
   getUsers(role?: string) {
     return new Promise((resolve, reject) => {
       let userDoc;
-      if( !role ) {
+      if (!role) {
         userDoc = this.afs.firestore.collection('users');
       } else {
         userDoc = this.afs.firestore.collection('users').where('role', '==', role);
@@ -56,6 +56,18 @@ export class UserService {
         .valueChanges()
         .subscribe(data => resolve(data), err => reject(err));
     });
+  }
+  updateUser(uid: string, payload) {
+    if (!payload.password) {
+      delete payload.password;
+      delete payload.confirmPassword;
+    }
+    return this.afs.collection('users')
+      .doc(uid).update(payload);
+  }
+  remove(uid) {
+    return this.afs.collection('users')
+      .doc(uid).delete();
   }
   getCollection(collection: string) {
     return new Promise((resolve, reject) => {

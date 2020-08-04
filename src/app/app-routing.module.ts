@@ -31,6 +31,9 @@ const routes: Routes = [
     }, {
       path: 'list',
       component: UsuarioListadoComponent
+    }, {
+      path: ':id',
+      component: UsuarioAltaComponent,
     }],
   }, {
     path: 'courses',

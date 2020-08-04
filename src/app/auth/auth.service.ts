@@ -115,43 +115,6 @@ export class AuthService {
     return user.emailVerified;
   }
 
-  updateDoc(collectionName: string, data: any) {
-    const collection = this.afs.collection(collectionName);
-    switch (collectionName) {
-      case 'admins':
-        collection.doc(data.email).update({
-          email: data.email,
-          pass: data.pass,
-          perfil: data.perfil,
-        });
-        break;
-      case 'profesionales':
-        collection.doc(data.email).update({
-          email: data.email,
-          pass: data.pass,
-          perfil: data.perfil,
-          fotoUno: data.fotoUno,
-          fotoDos: data.fotoDos,
-          firstname: data.firstname,
-          atencion: data.atencion,
-          lastname: data.lastname,
-          especialidades: data.especialidades
-        });
-        break;
-      case 'pacientes':
-        collection.doc(data.email).update({
-          email: data.email,
-          pass: data.pass,
-          perfil: data.perfil,
-          fotoUno: data.fotoUno,
-          firstname: data.firstname,
-          lastname: data.lastname,
-          fotoDos: data.fotoDos
-        });
-        break;
-
-    }
-  }
 
   getBD(collection: string) {
     return new Promise((resolve, reject) => {

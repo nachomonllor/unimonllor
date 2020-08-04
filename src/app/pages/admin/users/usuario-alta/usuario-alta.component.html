@@ -1,7 +1,7 @@
 <div class="container userAlta">
   <mat-toolbar color="primary">
     <span>
-      {{ form.controls['id'].value ? 'Modificar Usuario Administrador' : 'Nuevo Usuario Administrador' }}
+      {{ form.controls['id'].value ? 'Modificar Usuario' : 'Nuevo Usuario Administrador' }}
     </span>
     <span class="fill-remaining-space"></span>
     <button
@@ -117,7 +117,7 @@
             <div class="button-row text-right">
               <div class="form-group">
                 <button
-                  *ngIf="urlImage | async; else btnDisabled"
+                  *ngIf="(urlImage | async) || userId; else btnDisabled"
                   type="submit"
                   [disabled]="form.invalid"
                   mat-raised-button
@@ -137,11 +137,12 @@
                     Guardar
                   </button>
                 </ng-template>
+                <button mat-button color="warn" routerLink="/users/list">
+                  Cancelar
+                </button>
               </div>
 
-              <button mat-button color="warn" routerLink="/users/list">
-                Cancelar
-              </button>
+
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { environment } from './../../../../../environments/environment';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input, EventEmitter, Output, OnChanges, SimpleChanges, Inject } from '@angular/core';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,10 +36,11 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
 
   ) {
     // this.url = `${environment.apiUrl}/api/user`;
+
   }
   ngOnInit() {
     if (!this.users) {
@@ -65,6 +66,23 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
       cancelButtonText: 'No',
     }).then((result) => {
       if (result.value) {
+        this.userService.remove(id).then(resp => {
+           Swal.fire(
+              'Atención :)',
+              'El usuario ha sido eliminado',
+              'success',
+            );
+          this.ngOnInit();
+        }).catch((err) => {
+              Swal.fire({
+                title: 'Error',
+                text: err.error.message,
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2000,
+                animation: false,
+              });
+            });
         // this._httpService.delete<User>(`${this.url}/${id}`).subscribe(
         //   () => {
         //     Swal.fire(
@@ -74,17 +92,7 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
         //     );
         //     this.ngOnInit();
         //   },
-        //   (err) => {
-        //     console.log(err);
-        //     Swal.fire({
-        //       title: 'Error',
-        //       text: err.error.message,
-        //       icon: 'error',
-        //       showConfirmButton: false,
-        //       timer: 2000,
-        //       animation: false,
-        //     });
-        //   },
+
         // );
       }
     });
@@ -95,11 +103,8 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
       this.ngOnInit();
     }
   }
-  onEdit(evt) {
-    this.userEdited.emit(evt);
-  }
+
   onAddStudent(row) {
-    debugger
     row.selected = !row.selected;
     this.userSelected.emit(row);
   }
