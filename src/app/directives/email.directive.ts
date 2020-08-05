@@ -9,5 +9,4 @@ export class EmailDirective {
   constructor(private elementRef: ElementRef, private authService: AuthService) {
     this.elementRef.nativeElement.innerText = authService.user.email;
   }
-
 }

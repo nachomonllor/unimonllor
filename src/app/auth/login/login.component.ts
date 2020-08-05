@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -41,6 +42,10 @@ export class LoginComponent implements OnInit {
     this.authService.logoutUser();
   }
   handleError(err): void {
-    console.log('err', err.message);
+    Swal.fire(
+      'Error',
+      `:: ${err.message}`,
+      'error'
+    );
   }
 }

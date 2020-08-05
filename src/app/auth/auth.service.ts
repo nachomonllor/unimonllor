@@ -8,25 +8,31 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { async } from '@angular/core/testing';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user: firebase.User;
+  user: User;
+  role: string;
   token: string;
   constructor(
     private router: Router,
-    public afAuth: AngularFireAuth, public afs: AngularFirestore) {
-    this.loadStorage();
+    public afAuth: AngularFireAuth,
+    public afs: AngularFirestore) {
+      this.loadStorage();
   }
 
   logoutUser() {
     this.loadStorage
     this.user = null;
     this.token = '';
+    this.role = null;
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('role');
     this.router.navigate(['/login']);
     return this.afAuth.auth.signOut();
   }
@@ -45,33 +51,6 @@ export class AuthService {
             photoUrl: user.photoUrl,
             role: user.role,
           });
-          // switch (user.role) {
-          //   case 'admin':
-          //     const userCollection = this.afs.collection('users');
-
-          //     break;
-          //   case 'teacher':
-          //     const teacherCollection = this.afs.collection('teachers');
-          //     teacherCollection.doc(userData.user.uid).set({
-          //       firstname: user.firstname,
-          //       lastname: user.lastname,
-          //       email: user.email,
-          //       photoUrl: user.photoUrl,
-          //       role: user.role
-          //     });
-          //     break;
-          //   case 'student':
-          //     const studentCollection = this.afs.collection('students');
-          //     console.log(user);
-          //     studentCollection.doc(userData.user.uid).set({
-          //       firstname: user.firstname,
-          //       lastname: user.lastname,
-          //       email: user.email,
-          //       photoUrl: user.photoUrl,
-          //       role: user.role
-          //     });
-          //     break;
-          // }
         }, err => reject(err));
     });
   }
@@ -89,18 +68,29 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, pass)
         .then(userData => {
-          userData.user.getIdToken().then(token => {
-            this.user = userData.user;
+          // Recupero token
+          userData.user.getIdToken().then(async(token) => {
             this.token = token;
-            this.saveStorage(this.token, this.user)
-            resolve(userData);
+            // tengo la info del usuario logueado actual
+            const userDoc = await firebase.firestore().collection('users').doc(userData.user.uid);
+            userDoc.get().then((doc) => {
+              const data = doc.data();
+              this.user = new User({
+                uid: userData.user.uid,
+                firstname: data.firstname,
+                lastname: data.lastname,
+                role: data.role,
+                photoUrl: data.photoUrl,
+                email: data.email,
+              });
+              delete this.user.password;
+              this.saveStorage(this.token, this.user);
+              resolve(userData);
+            });
           });
-
-
         }, err => reject(err)).catch(e => reject(e));
     });
   }
-
   sendVerificationEmail() {
     const currentUser = this.afAuth.auth.currentUser;
     currentUser.sendEmailVerification();
@@ -127,7 +117,7 @@ export class AuthService {
       this.afs.collection(collection).doc(nameDoc).valueChanges().subscribe(data => resolve(data), err => reject(err));
     });
   }
-  saveStorage(token: string, user: firebase.User) {
+  saveStorage(token: string, user: User) {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
     this.user = user;

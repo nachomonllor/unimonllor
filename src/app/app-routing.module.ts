@@ -37,6 +37,7 @@ const routes: Routes = [
     }],
   }, {
     path: 'courses',
+    canActivate: [AdminGuard],
     children: [{
       path: 'new',
       component: CursoAltaComponent,
@@ -46,6 +47,7 @@ const routes: Routes = [
     }]
   }, {
     path: 'inscriptions',
+    canActivate: [AdminGuard],
     children: [{
       path: 'new',
       component: InscripcionAltaComponent,

@@ -17,7 +17,7 @@ import { User } from '../../../../models/user.model';
 export class CursoTablaComponent implements OnInit {
   dataSource: MatTableDataSource<Course>;
   @Output() courseSelected = new EventEmitter();
-  selectedRowIndex: any;
+  selectedRowIndex: number;
   displayedColumns: string[] = [
     'img',
     'name',

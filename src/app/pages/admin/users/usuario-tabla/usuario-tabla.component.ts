@@ -106,7 +106,11 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
 
   onAddStudent(row) {
     row.selected = !row.selected;
-    this.userSelected.emit(row);
+    if(row.selected) {
+      this.userSelected.emit(row);
+    } else {
+      this.userSelected.emit(null);
+    }
   }
   deselectAll() {
     this.dataSource.data.forEach(u => u.selected = false);

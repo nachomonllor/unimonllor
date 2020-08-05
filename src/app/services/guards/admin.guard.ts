@@ -28,10 +28,12 @@ export class AdminGuard implements CanActivate {
       .pipe(take(1))
       .pipe(map(authState => !!authState))
       .pipe(tap(auth => {
+        // verifico que este logueada
         if (!auth) {
           this.router.navigate(['/login']);
         }
         else {
+          // verifico que sea administrador
           let users$ = this.afs.collection('users').doc(this.afsAuth.auth.currentUser.uid).valueChanges();
           users$.subscribe((data: User) => {
             if (containsAdminRole(data.role)) {
