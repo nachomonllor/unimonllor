@@ -39,6 +39,8 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { CuposDirective } from './directives/cupos.directive';
 import { ExamenAltaComponent } from './pages/teacher/exams/examen-alta/examen-alta.component';
 import { AlumnosListadoComponent } from './pages/teacher/exams/alumnos-listado/alumnos-listado.component';
+import { MyCoursesComponent } from './pages/teacher/my-courses/my-courses/mycourses.component';
+import { ActasExamComponent } from './pages/teacher/actas-exam/actas-exam.component';
 
 
 @NgModule({
@@ -57,6 +59,7 @@ import { AlumnosListadoComponent } from './pages/teacher/exams/alumnos-listado/a
     InscriptionComponent,
 
     ExamenAltaComponent,
+    MyCoursesComponent,
     AlumnosListadoComponent,
 
     UsuarioAltaComponent,
@@ -71,6 +74,7 @@ import { AlumnosListadoComponent } from './pages/teacher/exams/alumnos-listado/a
     FilterPipe,
     EmailDirective,
     CuposDirective,
+    ActasExamComponent,
   ],
   imports: [
     BrowserModule,

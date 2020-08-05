@@ -1,0 +1,10 @@
+<div class="container mt-8">
+  <h1>Acta de Exámen</h1>
+  <hr>
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <h4>Listado de Cursos</h4>
+      <app-curso-tabla [courses]="courses" (courseSelected)="handleCourseSelected($event)"></app-curso-tabla>
+    </div>
+  </div>
+</div>

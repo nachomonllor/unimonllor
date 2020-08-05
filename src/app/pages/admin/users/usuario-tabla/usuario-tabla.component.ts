@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from '../../../../models/user.model';
 import { UserService } from '../user.service';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-usuario-tabla',
@@ -19,6 +20,7 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
   @Output() userSelected = new EventEmitter<User>();
   @Input() users;
   @Input() role;
+  showAddRemove = false;
   selectedRowIndex: any;
   dataSource: MatTableDataSource<User>;
   displayedColumns: string[] = [
@@ -36,9 +38,13 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
+    public authService: AuthService,
     private userService: UserService,
 
   ) {
+    if (this.router.url !== '/users/list') {
+      this.showAddRemove = true;
+    }
     // this.url = `${environment.apiUrl}/api/user`;
 
   }

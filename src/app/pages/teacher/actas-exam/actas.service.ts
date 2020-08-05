@@ -8,25 +8,19 @@ import { throwError, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../../../models/user.model';
 import { Course } from '../../../models/course.model';
+import { async } from '@angular/core/testing';
+import { TeacherCourseService } from '../my-courses/teacherCourse.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CourseService {
+export class ActasExamService extends TeacherCourseService {
+
   constructor(
     public afAuth: AngularFireAuth,
     public afs: AngularFirestore,
-    private authService: AuthService
-  ) { }
-
-  getCourses() {
-      return this.afs.collection('courses').valueChanges();
-  }
-  saveCourse(course: Course) {
-    // return this.afs.collection('courses').doc(course.teacher.uid).collection('items').add({...course});
-    course.uid = this.afs.createId();
-    return this.afs.collection('courses').doc(course.uid).set(course);
-    // return this.afs.collection(`courses/${course.teacher}`).add({...course});
-  }
-
+    public authService: AuthService
+  ) {
+    super(afAuth, afs, authService);
+   }
 }

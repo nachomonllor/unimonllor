@@ -69,14 +69,4 @@ export class UserService {
     return this.afs.collection('users')
       .doc(uid).delete();
   }
-  getCollection(collection: string) {
-    return new Promise((resolve, reject) => {
-      this.afs.collection(collection).valueChanges().subscribe(data => resolve(data), err => reject(err));
-    });
-  }
-  getByDocument(collection: string, nameDoc: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.afs.collection(collection).doc(nameDoc).valueChanges().subscribe(data => resolve(data), err => reject(err));
-    });
-  }
 }

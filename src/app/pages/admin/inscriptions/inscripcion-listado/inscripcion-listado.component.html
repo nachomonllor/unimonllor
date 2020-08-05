@@ -16,7 +16,7 @@
   <div class="row">
     <div class="col-12 col-md-12">
       <h3>Listado de Cursos</h3>
-      <app-curso-tabla (courseSelected)="handleCourseSelected($event)"></app-curso-tabla>
+      <app-curso-tabla [courses]="courses" (courseSelected)="handleCourseSelected($event)"></app-curso-tabla>
     </div>
   </div>
   <div class="row mt-4" *ngIf="showStudent">

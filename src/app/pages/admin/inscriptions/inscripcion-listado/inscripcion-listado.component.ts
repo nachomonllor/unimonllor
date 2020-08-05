@@ -1,5 +1,5 @@
 import { UsuarioTablaComponent } from '../../users/usuario-tabla/usuario-tabla.component';
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, Input, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Course } from '../../../../models/course.model';
 import { User } from '../../../../models/user.model';
@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 // Padre de inscripcionListadoComponent
 export class InscripcionListadoComponent implements OnInit {
+  @Input() courses: Course[];
   course: Course;
   students: User[] = [];
   @Output() courseSelected =  new EventEmitter<User>();
@@ -21,7 +22,6 @@ export class InscripcionListadoComponent implements OnInit {
   showStudent: boolean;
   constructor(private inscriptionService: InscriptionService) {
   }
-
   ngOnInit(): void {
 
   }

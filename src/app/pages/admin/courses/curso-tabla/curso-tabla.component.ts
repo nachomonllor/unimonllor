@@ -1,5 +1,5 @@
 import { environment } from '../../../../../environments/environment';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 
@@ -9,15 +9,18 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Course } from '../../../../models/course.model';
 import { CourseService } from '../course.service';
 import { User } from '../../../../models/user.model';
+import { AuthService } from '../../../../auth/auth.service';
 @Component({
   selector: 'app-curso-tabla',
   templateUrl: './curso-tabla.component.html',
   styleUrls: ['./curso-tabla.component.scss']
 })
-export class CursoTablaComponent implements OnInit {
+export class CursoTablaComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<Course>;
+  @Input() courses: Course[];
   @Output() courseSelected = new EventEmitter();
   selectedRowIndex: number;
+  showEditAndRemove: boolean;
   displayedColumns: string[] = [
     'img',
     'name',
@@ -34,28 +37,42 @@ export class CursoTablaComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private courseService: CourseService
+    private courseService: CourseService,
+    public authService: AuthService
   ) {
-    this.courseService.getCourses().subscribe((documents) => {
-      let courses: Course[] = [];
-      documents.forEach((doc: any, key: number) => {
-        // const data = doc.payload.doc.data();
-        courses.push({
-          index: key + 1,
-          uid: doc.uid,
-          name: doc.name,
-          period: doc.period,
-          capacity: doc.capacity,
-          year: doc.year,
-          teacher: doc.teacher,
-          img: doc.img
-        });
-      });
-      this.dataSource = new MatTableDataSource<Course>(courses);
-    });
+    if (this.router.url === '/courses/list') {
+      this.showEditAndRemove = true;
+    }
+   }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.courses && changes.courses.currentValue) {
+      debugger
+      this.dataSource = new MatTableDataSource<Course>(this.courses);
+    }
   }
   ngOnInit() {
+    if (this.courses) {
+      this.dataSource = new MatTableDataSource<Course>(this.courses);
+    } else {
+      this.courseService.getCourses().subscribe((documents) => {
+        let courses: Course[] = [];
+        documents.forEach((doc: any, key: number) => {
+          // const data = doc.payload.doc.data();
+          courses.push({
+            index: key + 1,
+            uid: doc.uid,
+            name: doc.name,
+            period: doc.period,
+            capacity: doc.capacity,
+            year: doc.year,
+            teacher: doc.teacher,
+            img: doc.img
+          });
+        });
+        this.dataSource = new MatTableDataSource<Course>(courses);
 
+      });
+    }
   }
   onDelete(id) {
     Swal.fire({
@@ -97,7 +114,7 @@ export class CursoTablaComponent implements OnInit {
       this.ngOnInit();
     }
   }
-  highlight(row){
+  highlight(row) {
     this.selectedRowIndex = row.index;
     this.courseSelected.emit(row);
   }

@@ -71,6 +71,7 @@
           mat-icon-button
           [routerLink]="['/courses', row.id]"
           matTooltip="Editar"
+          *ngIf="(authService.user.role === 'superadmin' || authService.user.role === 'admin') && showEditAndRemove"
         >
           <mat-icon>edit</mat-icon>
         </button>
@@ -79,6 +80,7 @@
           color="warn"
           (click)="onDelete(row.id)"
           matTooltip="Eliminar"
+          *ngIf="(authService.user.role === 'superadmin' || authService.user.role === 'admin') && showEditAndRemove"
         >
           <mat-icon>delete_outline</mat-icon>
         </button>

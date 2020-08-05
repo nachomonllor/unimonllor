@@ -37,6 +37,14 @@
             <a class="dropdown-item" routerLink="/courses/list">Listar</a>
           </div>
         </li>
+        <li class="nav-item mx-0 mx-lg-1 dropdown" *ngIf="authService.user.role === 'teacher'">
+          <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger dropdown-toggle" href="#" id="mnuCourses" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Materias
+          </a>
+          <div class="dropdown-menu" aria-labelledby="mnuCourses">
+            <a class="dropdown-item" routerLink="/my-courses">Listar</a>
+          </div>
+        </li>
         <li class="nav-item mx-0 mx-lg-1 dropdown" *ngIf="authService.user.role === 'superadmin' || authService.user.role === 'admin'">
           <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger dropdown-toggle" href="#" id="mnuCourses" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Inscripciones
@@ -52,6 +60,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="mnuExamns">
             <a class="dropdown-item" routerLink="/exams/new">Alta</a>
+            <a class="dropdown-item" routerLink="/actas-exam">Actas</a>
           </div>
         </li>
         <li class="nav-item mx-0 mx-lg-1">

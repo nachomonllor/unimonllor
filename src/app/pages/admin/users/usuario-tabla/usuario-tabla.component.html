@@ -54,12 +54,12 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button (click)="onAddStudent(row)">
+        <button mat-icon-button (click)="onAddStudent(row)" *ngIf="(authService.user.role === 'superadmin' || authService.user.role === 'admin') && showAddRemove">
           <mat-icon *ngIf="!row.selected">add</mat-icon>
           <mat-icon *ngIf="row.selected">remove</mat-icon>
 
         </button>
-        <button mat-icon-button [routerLink]="['/users', row.uid]" matTooltip="Editar">
+        <button mat-icon-button [routerLink]="['/users', row.uid]" matTooltip="Editar" *ngIf="authService.user.role === 'superadmin' || authService.user.role === 'admin'">
           <mat-icon>edit</mat-icon>
         </button>
         <button
@@ -67,6 +67,7 @@
           color="warn"
           (click)="onDelete(row.uid)"
           matTooltip="Eliminar"
+          *ngIf="authService.user.role === 'superadmin' || authService.user.role === 'admin'"
         >
           <mat-icon>delete_outline</mat-icon>
         </button>
