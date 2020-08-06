@@ -5,7 +5,7 @@ import * as firebase from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import { throwError, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, reduce } from 'rxjs/operators';
 import { User } from '../../../models/user.model';
 import { Course } from '../../../models/course.model';
 import { async } from '@angular/core/testing';
@@ -22,5 +22,12 @@ export class ActasExamService extends TeacherCourseService {
     public authService: AuthService
   ) {
     super(afAuth, afs, authService);
-   }
+  }
+  getExams(courseId): Observable<any> {
+    return this.afs.collection('exams', ref => ref.where('course.uid', '==', courseId))
+      .snapshotChanges().pipe(map(
+        querySnapshot => querySnapshot.map(i => i.payload.doc.data())
+      ));
+  }
+
 }

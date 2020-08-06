@@ -43,7 +43,7 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
     private userService: UserService,
 
   ) {
-    if (this.router.url === '/courses/new') {
+    if (this.router.url === '/courses/new' || this.router.url === '/exams/new') {
       this.showAddRemove = true;
     }
 

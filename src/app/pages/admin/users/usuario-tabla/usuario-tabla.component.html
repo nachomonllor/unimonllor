@@ -54,7 +54,7 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button (click)="onAddStudent(row)" *ngIf="(authService.user.role === 'superadmin' || authService.user.role === 'admin') && showAddRemove">
+        <button mat-icon-button (click)="onAddStudent(row)" *ngIf="(authService.user.role === 'superadmin' || authService.user.role === 'admin' || authService.user.role === 'teacher') && showAddRemove">
           <mat-icon *ngIf="!row.selected">add</mat-icon>
           <mat-icon *ngIf="row.selected">remove</mat-icon>
 

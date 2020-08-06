@@ -11,7 +11,7 @@ import { ActasExamService } from './actas.service';
 export class ActasExamComponent implements OnInit {
   courses: Course[] = [];
   course: Course;
-  students: User[] = [];
+  students: User[];
   constructor(private actasExamService: ActasExamService) { }
 
   ngOnInit(): void {
@@ -21,6 +21,9 @@ export class ActasExamComponent implements OnInit {
   }
   handleCourseSelected(evt) {
     this.course = evt;
-
+    this.actasExamService.getExams(this.course.uid).subscribe(data => {
+      debugger
+      this.students = data;
+    });
   }
 }

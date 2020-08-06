@@ -39,8 +39,12 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { CuposDirective } from './directives/cupos.directive';
 import { ExamenAltaComponent } from './pages/teacher/exams/examen-alta/examen-alta.component';
 import { AlumnosListadoComponent } from './pages/teacher/exams/alumnos-listado/alumnos-listado.component';
-import { MyCoursesComponent } from './pages/teacher/my-courses/my-courses/mycourses.component';
+import { MyCoursesComponent } from './pages/teacher/my-courses/mycourses.component';
 import { ActasExamComponent } from './pages/teacher/actas-exam/actas-exam.component';
+import { ListadoAprobacionDirectaComponent } from './pages/teacher/actas-exam/listado-aprobacion-directa/listado-aprobacion-directa.component';
+import { ListadoNodirectaComponent } from './pages/teacher/actas-exam/listado-nodirecta/listado-nodirecta.component';
+import { ListadoExamsComponent } from './pages/teacher/actas-exam/listado-exams/listado-exam.component';
+import { AprobadoPipe } from './pipes/aprobado.pipe';
 
 
 @NgModule({
@@ -72,9 +76,13 @@ import { ActasExamComponent } from './pages/teacher/actas-exam/actas-exam.compon
     InscripcionListadoComponent,
 
     FilterPipe,
+    AprobadoPipe,
     EmailDirective,
     CuposDirective,
     ActasExamComponent,
+    ListadoAprobacionDirectaComponent,
+    ListadoNodirectaComponent,
+    ListadoExamsComponent,
   ],
   imports: [
     BrowserModule,

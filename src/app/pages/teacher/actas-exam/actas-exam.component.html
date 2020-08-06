@@ -7,4 +7,12 @@
       <app-curso-tabla [courses]="courses" (courseSelected)="handleCourseSelected($event)"></app-curso-tabla>
     </div>
   </div>
+  <div class="row mt-4">
+    <div class="col-6">
+      <app-listado-aprobacion-directa [students]="students" *ngIf="courses && students"></app-listado-aprobacion-directa>
+    </div>
+    <div class="col-6">
+      <app-listado-nodirecta [students]="students" *ngIf="courses && students"></app-listado-nodirecta>
+    </div>
+  </div>
 </div>
