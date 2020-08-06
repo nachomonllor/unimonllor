@@ -65,8 +65,11 @@ export class UserService {
     return this.afs.collection('users')
       .doc(uid).update(payload);
   }
-  remove(uid) {
+  remove(user: User) {
+    if(user.role === 'student') {
+      this.afs.collection('studentLogs').add({...user, createdAt: new Date() });
+    }
     return this.afs.collection('users')
-      .doc(uid).delete();
+      .doc(user.uid).delete();
   }
 }

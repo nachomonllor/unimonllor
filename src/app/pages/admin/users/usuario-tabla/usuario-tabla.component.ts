@@ -43,7 +43,9 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
     private userService: UserService,
 
   ) {
-    if (this.router.url === '/courses/new' || this.router.url === '/exams/new') {
+    if (this.router.url === '/courses/new' ||
+      this.router.url === '/exams/new' ||
+      this.router.url === '/inscriptions/new') {
       this.showAddRemove = true;
     }
 
@@ -69,7 +71,7 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
       this.dataSource = new MatTableDataSource<User>(this.users);
     }
   }
-  onDelete(id) {
+  onDelete(user) {
     Swal.fire({
       title: '¿Está seguro?',
       text: 'Estás a punto de eliminar un usuario',
@@ -79,7 +81,7 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
       cancelButtonText: 'No',
     }).then((result) => {
       if (result.value) {
-        this.userService.remove(id).then(resp => {
+        this.userService.remove(user).then(resp => {
           Swal.fire(
             'Atención :)',
             'El usuario ha sido eliminado',

@@ -65,7 +65,7 @@
         <button
           mat-icon-button
           color="warn"
-          (click)="onDelete(row.uid)"
+          (click)="onDelete(row)"
           matTooltip="Eliminar"
           *ngIf="(authService.user.role === 'superadmin' || authService.user.role === 'admin') && showEditAndRemove"
         >

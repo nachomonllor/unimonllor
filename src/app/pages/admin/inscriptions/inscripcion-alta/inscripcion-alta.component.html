@@ -23,7 +23,7 @@
   </div>
   <div class="row mt-4" *ngIf="authService.user.role !== 'student'">
     <div class="col-12 col-md-8">
-      <h3>Lista de estudiantes</h3>
+      <h3 *ngIf="course">Lista de estudiantes</h3>
       <app-usuario-tabla
         #usuarioTabla
         role="student"
