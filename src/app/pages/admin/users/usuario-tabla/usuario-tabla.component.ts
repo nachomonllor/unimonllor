@@ -31,6 +31,7 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
     'role',
     'actions',
   ];
+  showEditAndRemove: boolean;
   url: string;
   @ViewChild('input', { static: true }) input: ElementRef;
   filter: string;
@@ -42,9 +43,15 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
     private userService: UserService,
 
   ) {
-    if (this.router.url !== '/users/list') {
+    if (this.router.url === '/courses/new') {
       this.showAddRemove = true;
     }
+
+    if (this.router.url === '/users/list') {
+      this.showEditAndRemove = true;
+    }
+
+
     // this.url = `${environment.apiUrl}/api/user`;
 
   }
@@ -73,22 +80,22 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
     }).then((result) => {
       if (result.value) {
         this.userService.remove(id).then(resp => {
-           Swal.fire(
-              'Atención :)',
-              'El usuario ha sido eliminado',
-              'success',
-            );
+          Swal.fire(
+            'Atención :)',
+            'El usuario ha sido eliminado',
+            'success',
+          );
           this.ngOnInit();
         }).catch((err) => {
-              Swal.fire({
-                title: 'Error',
-                text: err.error.message,
-                icon: 'error',
-                showConfirmButton: false,
-                timer: 2000,
-                animation: false,
-              });
-            });
+          Swal.fire({
+            title: 'Error',
+            text: err.error.message,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 2000,
+            animation: false,
+          });
+        });
         // this._httpService.delete<User>(`${this.url}/${id}`).subscribe(
         //   () => {
         //     Swal.fire(
@@ -112,7 +119,7 @@ export class UsuarioTablaComponent implements OnInit, OnChanges {
 
   onAddStudent(row) {
     row.selected = !row.selected;
-    if(row.selected) {
+    if (row.selected) {
       this.userSelected.emit(row);
     } else {
       this.userSelected.emit(null);
