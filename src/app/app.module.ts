@@ -45,6 +45,7 @@ import { ListadoAprobacionDirectaComponent } from './pages/teacher/actas-exam/li
 import { ListadoNodirectaComponent } from './pages/teacher/actas-exam/listado-nodirecta/listado-nodirecta.component';
 import { ListadoExamsComponent } from './pages/teacher/actas-exam/listado-exams/listado-exam.component';
 import { AprobadoPipe } from './pipes/aprobado.pipe';
+import { StudentsDeletedComponent } from './pages/admin/students-deleted/students-deleted.component';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import { AprobadoPipe } from './pipes/aprobado.pipe';
     ListadoAprobacionDirectaComponent,
     ListadoNodirectaComponent,
     ListadoExamsComponent,
+    StudentsDeletedComponent,
   ],
   imports: [
     BrowserModule,

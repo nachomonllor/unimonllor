@@ -26,6 +26,7 @@
           <div class="dropdown-menu" aria-labelledby="mnuUsers">
             <a class="dropdown-item" routerLink="/users/new">Alta</a>
             <a class="dropdown-item" routerLink="/users/list">Listar</a>
+            <a class="dropdown-item" routerLink="/users/deleted">Estudiantes Eliminados</a>
           </div>
         </li>
         <li class="nav-item mx-0 mx-lg-1 dropdown" *ngIf="authService.user.role === 'superadmin' || authService.user.role === 'admin'">

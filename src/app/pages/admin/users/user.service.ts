@@ -72,4 +72,7 @@ export class UserService {
     return this.afs.collection('users')
       .doc(user.uid).delete();
   }
+  getStudentsDeleted() {
+    return this.afs.collection('studentLogs').valueChanges();
+  }
 }

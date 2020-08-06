@@ -19,6 +19,7 @@ import { ExamenAltaComponent } from './pages/teacher/exams/examen-alta/examen-al
 import { MyCoursesComponent } from './pages/teacher/my-courses/mycourses.component';
 import { ActasExamComponent } from './pages/teacher/actas-exam/actas-exam.component';
 import { StudentGuard } from './services/guards/student.guard';
+import { StudentsDeletedComponent } from './pages/admin/students-deleted/students-deleted.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,9 @@ const routes: Routes = [
     }, {
       path: 'list',
       component: UsuarioListadoComponent
+    }, {
+      path: 'deleted',
+      component: StudentsDeletedComponent,
     }, {
       path: ':id',
       component: UsuarioAltaComponent,
@@ -58,8 +62,7 @@ const routes: Routes = [
       path: 'list',
       component: InscripcionListadoComponent
     }],
-  },
-  {
+  }, {
     path: 'students',
     canActivate: [StudentGuard],
     children: [{

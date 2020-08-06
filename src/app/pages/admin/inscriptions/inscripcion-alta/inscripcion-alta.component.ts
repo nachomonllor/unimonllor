@@ -27,7 +27,6 @@ export class InscripcionAltaComponent implements OnInit {
 
   }
   onSubmit() {
-    debugger
     const inscription = {
       course: this.course,
       student: this.student
