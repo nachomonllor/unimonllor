@@ -5,6 +5,7 @@ import { Course } from '../../../../models/course.model';
 import { User } from '../../../../models/user.model';
 import { InscriptionService } from '../inscription.service';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-inscripcion-alta',
@@ -13,38 +14,47 @@ import Swal from 'sweetalert2';
 })
 // Padre de inscripcionListadoComponent
 export class InscripcionAltaComponent implements OnInit {
+  student: User;
   course: Course;
   @ViewChild(UsuarioTablaComponent, { static: true }) usuarioTabla: UsuarioTablaComponent;
 
-  constructor(private inscriptionService: InscriptionService) {
+  constructor(
+    public authService: AuthService,
+    private inscriptionService: InscriptionService) {
   }
 
   ngOnInit(): void {
 
   }
   onSubmit() {
+    debugger
+    const inscription = {
+      course: this.course,
+      student: this.student
+        ? this.student
+        : this.authService.user
+    }
+    this.inscriptionService.saveInscription(inscription).then(resp => {
+      Swal.fire({
+        title: 'Atención',
+        text: 'El alumno ha sido inscripto en la materia',
+        icon: 'success',
+        showConfirmButton: true,
+        timer: 2000,
+        animation: true,
+      });
+    });
   }
   courseSelected(evt) {
-    this.usuarioTabla.deselectAll();
+    if (this.usuarioTabla) {
+      this.usuarioTabla.deselectAll();
+    }
     this.course = evt;
   }
   userSelected(evt) {
-    const inscription = {
-      course: this.course,
-      student: evt
-    }
+    this.student = evt;
     if (evt.selected) {
-
-      this.inscriptionService.saveInscription(inscription).then(resp => {
-        Swal.fire({
-          title: 'Atención',
-          text: 'El alumno ha sido inscripto en la materia',
-          icon: 'success',
-          showConfirmButton: true,
-          timer: 2000,
-          animation: true,
-        });
-      });
+      this.onSubmit();
     }
   }
 }

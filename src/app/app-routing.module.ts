@@ -18,6 +18,7 @@ import { TeacherGuard } from './services/guards/teacher.guard';
 import { ExamenAltaComponent } from './pages/teacher/exams/examen-alta/examen-alta.component';
 import { MyCoursesComponent } from './pages/teacher/my-courses/mycourses.component';
 import { ActasExamComponent } from './pages/teacher/actas-exam/actas-exam.component';
+import { StudentGuard } from './services/guards/student.guard';
 
 
 const routes: Routes = [
@@ -59,6 +60,13 @@ const routes: Routes = [
     }],
   },
   {
+    path: 'students',
+    canActivate: [StudentGuard],
+    children: [{
+      path: 'inscription',
+      component: InscripcionAltaComponent,
+    }],
+  }, {
     path: 'my-courses',
     canActivate: [TeacherGuard],
     component: MyCoursesComponent,

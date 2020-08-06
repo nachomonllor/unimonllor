@@ -16,14 +16,36 @@
   <div class="row">
     <div class="col-12 col-md-12">
       <h3>Lista de cursos</h3>
-      <app-curso-tabla (courseSelected)="courseSelected($event)"></app-curso-tabla>
+      <app-curso-tabla
+        (courseSelected)="courseSelected($event)"
+      ></app-curso-tabla>
     </div>
   </div>
-  <div class="row mt-4">
+  <div class="row mt-4" *ngIf="authService.user.role !== 'student'">
     <div class="col-12 col-md-8">
       <h3>Lista de estudiantes</h3>
-      <app-usuario-tabla #usuarioTabla role="student" (userSelected)="userSelected($event)"></app-usuario-tabla>
+      <app-usuario-tabla
+        #usuarioTabla
+        role="student"
+        (userSelected)="userSelected($event)"
+        *ngIf="course"
+      ></app-usuario-tabla>
     </div>
   </div>
-
+  <div class="row mt-4" *ngIf="authService.user.role === 'student'">
+    <div class="col-12 m-t-10">
+      <div class="button-row text-right">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onSubmit()"
+          type="submit"
+          [disabled]="!course"
+        >
+          <mat-icon>save</mat-icon>
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
